@@ -1,0 +1,1220 @@
+<?xml version="1.0" ?>
+<robot name="tapered_octopus_arm">
+  <link name="world"/>
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.2 0.2 0.1"/>
+      </geometry>
+      <material name="base_mat">
+        <color rgba="0.2 0.2 0.2 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.2 0.2 0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="10.0"/>
+      <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0"/>
+    </inertial>
+  </link>
+  <joint name="world_fixed" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0.1" rpy="0 0 0"/>
+  </joint>
+  <link name="virtual_link_0">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_0">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_0.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_0.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_0" type="revolute">
+    <parent link="base_link"/>
+    <child link="virtual_link_0"/>
+    <origin xyz="0 0 0.0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_0" type="revolute">
+    <parent link="virtual_link_0"/>
+    <child link="segment_0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_1">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0901"/>
+      <inertia ixx="8.4e-05" ixy="0" ixz="0" iyy="8.4e-05" iyz="0" izz="8.4e-05"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_1" type="revolute">
+    <parent link="segment_0"/>
+    <child link="virtual_link_1"/>
+    <origin xyz="0 0 0.06097368421052632" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_1" type="revolute">
+    <parent link="virtual_link_1"/>
+    <child link="segment_1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_2">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0808"/>
+      <inertia ixx="7e-05" ixy="0" ixz="0" iyy="7e-05" iyz="0" izz="7e-05"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_2" type="revolute">
+    <parent link="segment_1"/>
+    <child link="virtual_link_2"/>
+    <origin xyz="0 0 0.05892105263157894" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_2" type="revolute">
+    <parent link="virtual_link_2"/>
+    <child link="segment_2"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_3">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_3">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0723"/>
+      <inertia ixx="5.8e-05" ixy="0" ixz="0" iyy="5.8e-05" iyz="0" izz="5.8e-05"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_3" type="revolute">
+    <parent link="segment_2"/>
+    <child link="virtual_link_3"/>
+    <origin xyz="0 0 0.05686842105263158" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_3" type="revolute">
+    <parent link="virtual_link_3"/>
+    <child link="segment_3"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_4">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_4">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0643"/>
+      <inertia ixx="4.8e-05" ixy="0" ixz="0" iyy="4.8e-05" iyz="0" izz="4.8e-05"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_4" type="revolute">
+    <parent link="segment_3"/>
+    <child link="virtual_link_4"/>
+    <origin xyz="0 0 0.05481578947368421" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_4" type="revolute">
+    <parent link="virtual_link_4"/>
+    <child link="segment_4"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_5">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_5">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.057"/>
+      <inertia ixx="3.9e-05" ixy="0" ixz="0" iyy="3.9e-05" iyz="0" izz="3.9e-05"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_5" type="revolute">
+    <parent link="segment_4"/>
+    <child link="virtual_link_5"/>
+    <origin xyz="0 0 0.052763157894736845" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_5" type="revolute">
+    <parent link="virtual_link_5"/>
+    <child link="segment_5"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_6">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_6">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_6.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_6.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0502"/>
+      <inertia ixx="3.2e-05" ixy="0" ixz="0" iyy="3.2e-05" iyz="0" izz="3.2e-05"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_6" type="revolute">
+    <parent link="segment_5"/>
+    <child link="virtual_link_6"/>
+    <origin xyz="0 0 0.05071052631578947" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_6" type="revolute">
+    <parent link="virtual_link_6"/>
+    <child link="segment_6"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_7">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_7">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_7.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_7.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.044"/>
+      <inertia ixx="2.5e-05" ixy="0" ixz="0" iyy="2.5e-05" iyz="0" izz="2.5e-05"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_7" type="revolute">
+    <parent link="segment_6"/>
+    <child link="virtual_link_7"/>
+    <origin xyz="0 0 0.04865789473684211" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_7" type="revolute">
+    <parent link="virtual_link_7"/>
+    <child link="segment_7"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_8">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_8">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_8.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_8.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0383"/>
+      <inertia ixx="2e-05" ixy="0" ixz="0" iyy="2e-05" iyz="0" izz="2e-05"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_8" type="revolute">
+    <parent link="segment_7"/>
+    <child link="virtual_link_8"/>
+    <origin xyz="0 0 0.04660526315789473" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_8" type="revolute">
+    <parent link="virtual_link_8"/>
+    <child link="segment_8"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_9">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_9">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_9.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_9.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0332"/>
+      <inertia ixx="1.6e-05" ixy="0" ixz="0" iyy="1.6e-05" iyz="0" izz="1.6e-05"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_9" type="revolute">
+    <parent link="segment_8"/>
+    <child link="virtual_link_9"/>
+    <origin xyz="0 0 0.04455263157894737" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_9" type="revolute">
+    <parent link="virtual_link_9"/>
+    <child link="segment_9"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_10">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_10">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_10.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_10.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0285"/>
+      <inertia ixx="1.2e-05" ixy="0" ixz="0" iyy="1.2e-05" iyz="0" izz="1.2e-05"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_10" type="revolute">
+    <parent link="segment_9"/>
+    <child link="virtual_link_10"/>
+    <origin xyz="0 0 0.0425" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_10" type="revolute">
+    <parent link="virtual_link_10"/>
+    <child link="segment_10"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_11">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_11">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_11.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_11.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0243"/>
+      <inertia ixx="9e-06" ixy="0" ixz="0" iyy="9e-06" iyz="0" izz="9e-06"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_11" type="revolute">
+    <parent link="segment_10"/>
+    <child link="virtual_link_11"/>
+    <origin xyz="0 0 0.040447368421052635" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_11" type="revolute">
+    <parent link="virtual_link_11"/>
+    <child link="segment_11"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_12">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_12">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_12.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_12.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0205"/>
+      <inertia ixx="7e-06" ixy="0" ixz="0" iyy="7e-06" iyz="0" izz="7e-06"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_12" type="revolute">
+    <parent link="segment_11"/>
+    <child link="virtual_link_12"/>
+    <origin xyz="0 0 0.038394736842105266" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_12" type="revolute">
+    <parent link="virtual_link_12"/>
+    <child link="segment_12"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_13">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_13">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_13.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_13.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0171"/>
+      <inertia ixx="5e-06" ixy="0" ixz="0" iyy="5e-06" iyz="0" izz="5e-06"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_13" type="revolute">
+    <parent link="segment_12"/>
+    <child link="virtual_link_13"/>
+    <origin xyz="0 0 0.0363421052631579" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_13" type="revolute">
+    <parent link="virtual_link_13"/>
+    <child link="segment_13"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_14">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_14">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_14.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_14.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0141"/>
+      <inertia ixx="4e-06" ixy="0" ixz="0" iyy="4e-06" iyz="0" izz="4e-06"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_14" type="revolute">
+    <parent link="segment_13"/>
+    <child link="virtual_link_14"/>
+    <origin xyz="0 0 0.03428947368421052" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_14" type="revolute">
+    <parent link="virtual_link_14"/>
+    <child link="segment_14"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_15">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_15">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_15.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_15.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0115"/>
+      <inertia ixx="3e-06" ixy="0" ixz="0" iyy="3e-06" iyz="0" izz="3e-06"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_15" type="revolute">
+    <parent link="segment_14"/>
+    <child link="virtual_link_15"/>
+    <origin xyz="0 0 0.032236842105263154" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_15" type="revolute">
+    <parent link="virtual_link_15"/>
+    <child link="segment_15"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_16">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_16">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_16.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_16.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0093"/>
+      <inertia ixx="2e-06" ixy="0" ixz="0" iyy="2e-06" iyz="0" izz="2e-06"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_16" type="revolute">
+    <parent link="segment_15"/>
+    <child link="virtual_link_16"/>
+    <origin xyz="0 0 0.030184210526315786" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_16" type="revolute">
+    <parent link="virtual_link_16"/>
+    <child link="segment_16"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_17">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_17">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_17.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_17.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0073"/>
+      <inertia ixx="1e-06" ixy="0" ixz="0" iyy="1e-06" iyz="0" izz="1e-06"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_17" type="revolute">
+    <parent link="segment_16"/>
+    <child link="virtual_link_17"/>
+    <origin xyz="0 0 0.028131578947368417" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_17" type="revolute">
+    <parent link="virtual_link_17"/>
+    <child link="segment_17"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_18">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_18">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_18.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_18.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0057"/>
+      <inertia ixx="1e-06" ixy="0" ixz="0" iyy="1e-06" iyz="0" izz="1e-06"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_18" type="revolute">
+    <parent link="segment_17"/>
+    <child link="virtual_link_18"/>
+    <origin xyz="0 0 0.02607894736842105" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_18" type="revolute">
+    <parent link="virtual_link_18"/>
+    <child link="segment_18"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <link name="virtual_link_19">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="segment_19">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_19.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm_teal">
+        <color rgba="0.0 0.6 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file:///home/vaibhav/doc_oct/src/octopus_description/meshes/segment_19.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0043"/>
+      <inertia ixx="1e-06" ixy="0" ixz="0" iyy="1e-06" iyz="0" izz="1e-06"/>
+    </inertial>
+  </link>
+  <joint name="pitch_joint_19" type="revolute">
+    <parent link="segment_18"/>
+    <child link="virtual_link_19"/>
+    <origin xyz="0 0 0.02402631578947368" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <joint name="yaw_joint_19" type="revolute">
+    <parent link="virtual_link_19"/>
+    <child link="segment_19"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="10.0" velocity="2.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+  <ros2_control name="GazeboSimSystem" type="system">
+    <hardware>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+    <joint name="pitch_joint_0">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_0">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_1">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_1">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_2">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_2">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_3">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_3">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_4">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_4">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_5">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_5">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_6">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_6">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_7">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_7">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_8">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_8">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_9">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_9">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_10">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_10">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_11">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_11">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_12">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_12">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_13">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_13">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_14">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_14">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_15">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_15">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_16">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_16">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_17">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_17">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_18">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_18">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="pitch_joint_19">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="yaw_joint_19">
+      <command_interface name="position">
+        <param name="min">-0.5</param>
+        <param name="max">0.5</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+  <gazebo>
+    <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <parameters>/home/vaibhav/doc_oct/install/octopus_description/share/octopus_description/config/arm_controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+</robot>

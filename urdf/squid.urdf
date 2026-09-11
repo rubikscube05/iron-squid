@@ -1,0 +1,3534 @@
+<?xml version="1.0"?>
+
+<robot name="three_arm_octobot">
+  <!-- ==================================================
+       ROOT BASE LINK (UNFIXED)
+       ================================================== -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+    </inertial>
+  </link>
+  <!-- ==================================================
+       500 mm TRIANGULAR BIPYRAMID HEAD
+       ================================================== -->
+  <link name="head">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="3.0"/>
+      <inertia ixx="0.03" ixy="0" ixz="0" iyy="0.03" iyz="0" izz="0.03"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/head.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="head_blue">
+        <color rgba="0.2 0.2 0.8 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/head.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="head">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <joint name="base_to_head" type="fixed">
+    <parent link="base_link"/>
+    <child link="head"/>
+    <origin xyz="0 0 0.5" rpy="3.14159265 0 0"/>
+  </joint>
+  
+  <!-- ==================================================
+       ARM1 MOUNT - OFFSET BY 25.0mm
+       ================================================== -->
+  <link name="arm1_mount">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_mount_joint" type="fixed">
+    <parent link="head"/>
+    <child link="arm1_mount"/>
+    <origin xyz="0.05824858 0.10088951 0.08129681" rpy="0.00000000 0.94566257 1.04719755"/>
+  </joint>
+  <link name="arm1_segment_0">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.03000000" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_0.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.03000000" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_0.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_0">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_0" type="revolute">
+    <parent link="arm1_mount"/>
+    <child link="arm1_segment_0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_0">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_0" type="revolute">
+    <parent link="arm1_segment_0"/>
+    <child link="arm1_yaw_link_0"/>
+    <origin xyz="0 0 0.06000000" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02897368" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02897368" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_1">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_1" type="revolute">
+    <parent link="arm1_yaw_link_0"/>
+    <child link="arm1_segment_1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_1" type="revolute">
+    <parent link="arm1_segment_1"/>
+    <child link="arm1_yaw_link_1"/>
+    <origin xyz="0 0 0.05794737" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02794737" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02794737" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_2">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_2" type="revolute">
+    <parent link="arm1_yaw_link_1"/>
+    <child link="arm1_segment_2"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_2" type="revolute">
+    <parent link="arm1_segment_2"/>
+    <child link="arm1_yaw_link_2"/>
+    <origin xyz="0 0 0.05589474" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02692105" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02692105" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_3">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_3" type="revolute">
+    <parent link="arm1_yaw_link_2"/>
+    <child link="arm1_segment_3"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_3" type="revolute">
+    <parent link="arm1_segment_3"/>
+    <child link="arm1_yaw_link_3"/>
+    <origin xyz="0 0 0.05384211" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_4">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02589474" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02589474" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_4">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_4" type="revolute">
+    <parent link="arm1_yaw_link_3"/>
+    <child link="arm1_segment_4"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_4">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_4" type="revolute">
+    <parent link="arm1_segment_4"/>
+    <child link="arm1_yaw_link_4"/>
+    <origin xyz="0 0 0.05178947" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_5">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02486842" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02486842" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_5">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_5" type="revolute">
+    <parent link="arm1_yaw_link_4"/>
+    <child link="arm1_segment_5"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_5">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_5" type="revolute">
+    <parent link="arm1_segment_5"/>
+    <child link="arm1_yaw_link_5"/>
+    <origin xyz="0 0 0.04973684" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_6">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02384211" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_6.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02384211" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_6.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_6">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_6" type="revolute">
+    <parent link="arm1_yaw_link_5"/>
+    <child link="arm1_segment_6"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_6">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_6" type="revolute">
+    <parent link="arm1_segment_6"/>
+    <child link="arm1_yaw_link_6"/>
+    <origin xyz="0 0 0.04768421" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_7">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02281579" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_7.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02281579" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_7.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_7">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_7" type="revolute">
+    <parent link="arm1_yaw_link_6"/>
+    <child link="arm1_segment_7"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_7">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_7" type="revolute">
+    <parent link="arm1_segment_7"/>
+    <child link="arm1_yaw_link_7"/>
+    <origin xyz="0 0 0.04563158" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_8">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02178947" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_8.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02178947" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_8.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_8">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_8" type="revolute">
+    <parent link="arm1_yaw_link_7"/>
+    <child link="arm1_segment_8"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_8">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_8" type="revolute">
+    <parent link="arm1_segment_8"/>
+    <child link="arm1_yaw_link_8"/>
+    <origin xyz="0 0 0.04357895" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_9">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02076316" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_9.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02076316" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_9.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_9">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_9" type="revolute">
+    <parent link="arm1_yaw_link_8"/>
+    <child link="arm1_segment_9"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_9">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_9" type="revolute">
+    <parent link="arm1_segment_9"/>
+    <child link="arm1_yaw_link_9"/>
+    <origin xyz="0 0 0.04152632" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_10">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01973684" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_10.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01973684" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_10.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_10">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_10" type="revolute">
+    <parent link="arm1_yaw_link_9"/>
+    <child link="arm1_segment_10"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_10">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_10" type="revolute">
+    <parent link="arm1_segment_10"/>
+    <child link="arm1_yaw_link_10"/>
+    <origin xyz="0 0 0.03947368" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_11">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01871053" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_11.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01871053" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_11.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_11">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_11" type="revolute">
+    <parent link="arm1_yaw_link_10"/>
+    <child link="arm1_segment_11"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_11">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_11" type="revolute">
+    <parent link="arm1_segment_11"/>
+    <child link="arm1_yaw_link_11"/>
+    <origin xyz="0 0 0.03742105" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_12">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01768421" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_12.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01768421" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_12.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_12">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_12" type="revolute">
+    <parent link="arm1_yaw_link_11"/>
+    <child link="arm1_segment_12"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_12">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_12" type="revolute">
+    <parent link="arm1_segment_12"/>
+    <child link="arm1_yaw_link_12"/>
+    <origin xyz="0 0 0.03536842" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_13">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01665789" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_13.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01665789" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_13.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_13">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_13" type="revolute">
+    <parent link="arm1_yaw_link_12"/>
+    <child link="arm1_segment_13"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_13">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_13" type="revolute">
+    <parent link="arm1_segment_13"/>
+    <child link="arm1_yaw_link_13"/>
+    <origin xyz="0 0 0.03331579" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_14">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01563158" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_14.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01563158" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_14.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_14">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_14" type="revolute">
+    <parent link="arm1_yaw_link_13"/>
+    <child link="arm1_segment_14"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_14">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_14" type="revolute">
+    <parent link="arm1_segment_14"/>
+    <child link="arm1_yaw_link_14"/>
+    <origin xyz="0 0 0.03126316" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_15">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01460526" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_15.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01460526" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_15.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_15">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_15" type="revolute">
+    <parent link="arm1_yaw_link_14"/>
+    <child link="arm1_segment_15"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_15">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_15" type="revolute">
+    <parent link="arm1_segment_15"/>
+    <child link="arm1_yaw_link_15"/>
+    <origin xyz="0 0 0.02921053" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_16">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01357895" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_16.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01357895" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_16.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_16">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_16" type="revolute">
+    <parent link="arm1_yaw_link_15"/>
+    <child link="arm1_segment_16"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_16">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_16" type="revolute">
+    <parent link="arm1_segment_16"/>
+    <child link="arm1_yaw_link_16"/>
+    <origin xyz="0 0 0.02715789" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_17">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01255263" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_17.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01255263" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_17.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_17">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_17" type="revolute">
+    <parent link="arm1_yaw_link_16"/>
+    <child link="arm1_segment_17"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_17">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_17" type="revolute">
+    <parent link="arm1_segment_17"/>
+    <child link="arm1_yaw_link_17"/>
+    <origin xyz="0 0 0.02510526" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_18">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01152632" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_18.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01152632" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_18.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_18">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_18" type="revolute">
+    <parent link="arm1_yaw_link_17"/>
+    <child link="arm1_segment_18"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_18">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_18" type="revolute">
+    <parent link="arm1_segment_18"/>
+    <child link="arm1_yaw_link_18"/>
+    <origin xyz="0 0 0.02305263" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_segment_19">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01050000" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_19.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm1_red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01050000" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_19.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm1_segment_19">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <joint name="arm1_pitch_joint_19" type="revolute">
+    <parent link="arm1_yaw_link_18"/>
+    <child link="arm1_segment_19"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm1_yaw_link_19">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm1_yaw_joint_19" type="revolute">
+    <parent link="arm1_segment_19"/>
+    <child link="arm1_yaw_link_19"/>
+    <origin xyz="0 0 0.02100000" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  
+  <!-- ==================================================
+       ARM2 MOUNT - OFFSET BY 25.0mm
+       ================================================== -->
+  <link name="arm2_mount">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_mount_joint" type="fixed">
+    <parent link="head"/>
+    <child link="arm2_mount"/>
+    <origin xyz="-0.11649717 0.00000000 0.08129681" rpy="0.00000000 0.94566257 3.14159265"/>
+  </joint>
+  <link name="arm2_segment_0">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.03000000" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_0.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.03000000" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_0.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_0">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_0" type="revolute">
+    <parent link="arm2_mount"/>
+    <child link="arm2_segment_0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_0">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_0" type="revolute">
+    <parent link="arm2_segment_0"/>
+    <child link="arm2_yaw_link_0"/>
+    <origin xyz="0 0 0.06000000" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02897368" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02897368" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_1">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_1" type="revolute">
+    <parent link="arm2_yaw_link_0"/>
+    <child link="arm2_segment_1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_1" type="revolute">
+    <parent link="arm2_segment_1"/>
+    <child link="arm2_yaw_link_1"/>
+    <origin xyz="0 0 0.05794737" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02794737" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02794737" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_2">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_2" type="revolute">
+    <parent link="arm2_yaw_link_1"/>
+    <child link="arm2_segment_2"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_2" type="revolute">
+    <parent link="arm2_segment_2"/>
+    <child link="arm2_yaw_link_2"/>
+    <origin xyz="0 0 0.05589474" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02692105" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02692105" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_3">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_3" type="revolute">
+    <parent link="arm2_yaw_link_2"/>
+    <child link="arm2_segment_3"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_3" type="revolute">
+    <parent link="arm2_segment_3"/>
+    <child link="arm2_yaw_link_3"/>
+    <origin xyz="0 0 0.05384211" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_4">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02589474" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02589474" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_4">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_4" type="revolute">
+    <parent link="arm2_yaw_link_3"/>
+    <child link="arm2_segment_4"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_4">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_4" type="revolute">
+    <parent link="arm2_segment_4"/>
+    <child link="arm2_yaw_link_4"/>
+    <origin xyz="0 0 0.05178947" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_5">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02486842" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02486842" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_5">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_5" type="revolute">
+    <parent link="arm2_yaw_link_4"/>
+    <child link="arm2_segment_5"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_5">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_5" type="revolute">
+    <parent link="arm2_segment_5"/>
+    <child link="arm2_yaw_link_5"/>
+    <origin xyz="0 0 0.04973684" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_6">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02384211" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_6.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02384211" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_6.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_6">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_6" type="revolute">
+    <parent link="arm2_yaw_link_5"/>
+    <child link="arm2_segment_6"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_6">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_6" type="revolute">
+    <parent link="arm2_segment_6"/>
+    <child link="arm2_yaw_link_6"/>
+    <origin xyz="0 0 0.04768421" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_7">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02281579" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_7.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02281579" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_7.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_7">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_7" type="revolute">
+    <parent link="arm2_yaw_link_6"/>
+    <child link="arm2_segment_7"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_7">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_7" type="revolute">
+    <parent link="arm2_segment_7"/>
+    <child link="arm2_yaw_link_7"/>
+    <origin xyz="0 0 0.04563158" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_8">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02178947" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_8.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02178947" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_8.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_8">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_8" type="revolute">
+    <parent link="arm2_yaw_link_7"/>
+    <child link="arm2_segment_8"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_8">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_8" type="revolute">
+    <parent link="arm2_segment_8"/>
+    <child link="arm2_yaw_link_8"/>
+    <origin xyz="0 0 0.04357895" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_9">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02076316" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_9.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02076316" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_9.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_9">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_9" type="revolute">
+    <parent link="arm2_yaw_link_8"/>
+    <child link="arm2_segment_9"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_9">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_9" type="revolute">
+    <parent link="arm2_segment_9"/>
+    <child link="arm2_yaw_link_9"/>
+    <origin xyz="0 0 0.04152632" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_10">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01973684" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_10.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01973684" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_10.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_10">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_10" type="revolute">
+    <parent link="arm2_yaw_link_9"/>
+    <child link="arm2_segment_10"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_10">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_10" type="revolute">
+    <parent link="arm2_segment_10"/>
+    <child link="arm2_yaw_link_10"/>
+    <origin xyz="0 0 0.03947368" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_11">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01871053" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_11.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01871053" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_11.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_11">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_11" type="revolute">
+    <parent link="arm2_yaw_link_10"/>
+    <child link="arm2_segment_11"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_11">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_11" type="revolute">
+    <parent link="arm2_segment_11"/>
+    <child link="arm2_yaw_link_11"/>
+    <origin xyz="0 0 0.03742105" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_12">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01768421" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_12.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01768421" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_12.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_12">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_12" type="revolute">
+    <parent link="arm2_yaw_link_11"/>
+    <child link="arm2_segment_12"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_12">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_12" type="revolute">
+    <parent link="arm2_segment_12"/>
+    <child link="arm2_yaw_link_12"/>
+    <origin xyz="0 0 0.03536842" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_13">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01665789" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_13.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01665789" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_13.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_13">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_13" type="revolute">
+    <parent link="arm2_yaw_link_12"/>
+    <child link="arm2_segment_13"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_13">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_13" type="revolute">
+    <parent link="arm2_segment_13"/>
+    <child link="arm2_yaw_link_13"/>
+    <origin xyz="0 0 0.03331579" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_14">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01563158" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_14.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01563158" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_14.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_14">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_14" type="revolute">
+    <parent link="arm2_yaw_link_13"/>
+    <child link="arm2_segment_14"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_14">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_14" type="revolute">
+    <parent link="arm2_segment_14"/>
+    <child link="arm2_yaw_link_14"/>
+    <origin xyz="0 0 0.03126316" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_15">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01460526" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_15.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01460526" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_15.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_15">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_15" type="revolute">
+    <parent link="arm2_yaw_link_14"/>
+    <child link="arm2_segment_15"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_15">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_15" type="revolute">
+    <parent link="arm2_segment_15"/>
+    <child link="arm2_yaw_link_15"/>
+    <origin xyz="0 0 0.02921053" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_16">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01357895" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_16.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01357895" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_16.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_16">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_16" type="revolute">
+    <parent link="arm2_yaw_link_15"/>
+    <child link="arm2_segment_16"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_16">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_16" type="revolute">
+    <parent link="arm2_segment_16"/>
+    <child link="arm2_yaw_link_16"/>
+    <origin xyz="0 0 0.02715789" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_17">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01255263" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_17.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01255263" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_17.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_17">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_17" type="revolute">
+    <parent link="arm2_yaw_link_16"/>
+    <child link="arm2_segment_17"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_17">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_17" type="revolute">
+    <parent link="arm2_segment_17"/>
+    <child link="arm2_yaw_link_17"/>
+    <origin xyz="0 0 0.02510526" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_18">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01152632" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_18.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01152632" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_18.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_18">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_18" type="revolute">
+    <parent link="arm2_yaw_link_17"/>
+    <child link="arm2_segment_18"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_18">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_18" type="revolute">
+    <parent link="arm2_segment_18"/>
+    <child link="arm2_yaw_link_18"/>
+    <origin xyz="0 0 0.02305263" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_segment_19">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01050000" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_19.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm2_green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01050000" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_19.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm2_segment_19">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <joint name="arm2_pitch_joint_19" type="revolute">
+    <parent link="arm2_yaw_link_18"/>
+    <child link="arm2_segment_19"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm2_yaw_link_19">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm2_yaw_joint_19" type="revolute">
+    <parent link="arm2_segment_19"/>
+    <child link="arm2_yaw_link_19"/>
+    <origin xyz="0 0 0.02100000" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  
+  <!-- ==================================================
+       ARM3 MOUNT - OFFSET BY 25.0mm
+       ================================================== -->
+  <link name="arm3_mount">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_mount_joint" type="fixed">
+    <parent link="head"/>
+    <child link="arm3_mount"/>
+    <origin xyz="0.05824858 -0.10088951 0.08129681" rpy="0.00000000 0.94566257 -1.04719755"/>
+  </joint>
+  <link name="arm3_segment_0">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.03000000" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_0.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.03000000" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_0.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_0">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_0" type="revolute">
+    <parent link="arm3_mount"/>
+    <child link="arm3_segment_0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_0">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_0" type="revolute">
+    <parent link="arm3_segment_0"/>
+    <child link="arm3_yaw_link_0"/>
+    <origin xyz="0 0 0.06000000" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02897368" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02897368" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_1">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_1" type="revolute">
+    <parent link="arm3_yaw_link_0"/>
+    <child link="arm3_segment_1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_1" type="revolute">
+    <parent link="arm3_segment_1"/>
+    <child link="arm3_yaw_link_1"/>
+    <origin xyz="0 0 0.05794737" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02794737" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02794737" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_2">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_2" type="revolute">
+    <parent link="arm3_yaw_link_1"/>
+    <child link="arm3_segment_2"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_2" type="revolute">
+    <parent link="arm3_segment_2"/>
+    <child link="arm3_yaw_link_2"/>
+    <origin xyz="0 0 0.05589474" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02692105" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02692105" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_3">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_3" type="revolute">
+    <parent link="arm3_yaw_link_2"/>
+    <child link="arm3_segment_3"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_3" type="revolute">
+    <parent link="arm3_segment_3"/>
+    <child link="arm3_yaw_link_3"/>
+    <origin xyz="0 0 0.05384211" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_4">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02589474" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02589474" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_4">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_4" type="revolute">
+    <parent link="arm3_yaw_link_3"/>
+    <child link="arm3_segment_4"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_4">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_4" type="revolute">
+    <parent link="arm3_segment_4"/>
+    <child link="arm3_yaw_link_4"/>
+    <origin xyz="0 0 0.05178947" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_5">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02486842" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02486842" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_5">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_5" type="revolute">
+    <parent link="arm3_yaw_link_4"/>
+    <child link="arm3_segment_5"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_5">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_5" type="revolute">
+    <parent link="arm3_segment_5"/>
+    <child link="arm3_yaw_link_5"/>
+    <origin xyz="0 0 0.04973684" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_6">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02384211" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_6.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02384211" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_6.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_6">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_6" type="revolute">
+    <parent link="arm3_yaw_link_5"/>
+    <child link="arm3_segment_6"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_6">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_6" type="revolute">
+    <parent link="arm3_segment_6"/>
+    <child link="arm3_yaw_link_6"/>
+    <origin xyz="0 0 0.04768421" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_7">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02281579" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_7.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02281579" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_7.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_7">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_7" type="revolute">
+    <parent link="arm3_yaw_link_6"/>
+    <child link="arm3_segment_7"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_7">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_7" type="revolute">
+    <parent link="arm3_segment_7"/>
+    <child link="arm3_yaw_link_7"/>
+    <origin xyz="0 0 0.04563158" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_8">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02178947" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_8.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02178947" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_8.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_8">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_8" type="revolute">
+    <parent link="arm3_yaw_link_7"/>
+    <child link="arm3_segment_8"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_8">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_8" type="revolute">
+    <parent link="arm3_segment_8"/>
+    <child link="arm3_yaw_link_8"/>
+    <origin xyz="0 0 0.04357895" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_9">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02076316" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_9.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.02076316" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_9.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_9">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_9" type="revolute">
+    <parent link="arm3_yaw_link_8"/>
+    <child link="arm3_segment_9"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_9">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_9" type="revolute">
+    <parent link="arm3_segment_9"/>
+    <child link="arm3_yaw_link_9"/>
+    <origin xyz="0 0 0.04152632" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_10">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01973684" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_10.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01973684" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_10.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_10">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_10" type="revolute">
+    <parent link="arm3_yaw_link_9"/>
+    <child link="arm3_segment_10"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_10">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_10" type="revolute">
+    <parent link="arm3_segment_10"/>
+    <child link="arm3_yaw_link_10"/>
+    <origin xyz="0 0 0.03947368" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_11">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01871053" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_11.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01871053" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_11.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_11">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_11" type="revolute">
+    <parent link="arm3_yaw_link_10"/>
+    <child link="arm3_segment_11"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_11">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_11" type="revolute">
+    <parent link="arm3_segment_11"/>
+    <child link="arm3_yaw_link_11"/>
+    <origin xyz="0 0 0.03742105" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_12">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01768421" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_12.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01768421" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_12.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_12">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_12" type="revolute">
+    <parent link="arm3_yaw_link_11"/>
+    <child link="arm3_segment_12"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_12">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_12" type="revolute">
+    <parent link="arm3_segment_12"/>
+    <child link="arm3_yaw_link_12"/>
+    <origin xyz="0 0 0.03536842" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_13">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01665789" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_13.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01665789" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_13.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_13">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_13" type="revolute">
+    <parent link="arm3_yaw_link_12"/>
+    <child link="arm3_segment_13"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_13">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_13" type="revolute">
+    <parent link="arm3_segment_13"/>
+    <child link="arm3_yaw_link_13"/>
+    <origin xyz="0 0 0.03331579" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_14">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01563158" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_14.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01563158" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_14.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_14">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_14" type="revolute">
+    <parent link="arm3_yaw_link_13"/>
+    <child link="arm3_segment_14"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_14">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_14" type="revolute">
+    <parent link="arm3_segment_14"/>
+    <child link="arm3_yaw_link_14"/>
+    <origin xyz="0 0 0.03126316" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_15">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01460526" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_15.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01460526" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_15.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_15">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_15" type="revolute">
+    <parent link="arm3_yaw_link_14"/>
+    <child link="arm3_segment_15"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_15">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_15" type="revolute">
+    <parent link="arm3_segment_15"/>
+    <child link="arm3_yaw_link_15"/>
+    <origin xyz="0 0 0.02921053" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_16">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01357895" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_16.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01357895" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_16.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_16">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_16" type="revolute">
+    <parent link="arm3_yaw_link_15"/>
+    <child link="arm3_segment_16"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_16">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_16" type="revolute">
+    <parent link="arm3_segment_16"/>
+    <child link="arm3_yaw_link_16"/>
+    <origin xyz="0 0 0.02715789" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_17">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01255263" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_17.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01255263" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_17.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_17">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_17" type="revolute">
+    <parent link="arm3_yaw_link_16"/>
+    <child link="arm3_segment_17"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_17">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_17" type="revolute">
+    <parent link="arm3_segment_17"/>
+    <child link="arm3_yaw_link_17"/>
+    <origin xyz="0 0 0.02510526" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_18">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01152632" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_18.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01152632" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_18.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_18">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_18" type="revolute">
+    <parent link="arm3_yaw_link_17"/>
+    <child link="arm3_segment_18"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_18">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_18" type="revolute">
+    <parent link="arm3_segment_18"/>
+    <child link="arm3_yaw_link_18"/>
+    <origin xyz="0 0 0.02305263" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_segment_19">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.01050000" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_19.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="arm3_yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.01050000" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="model://octopus_description/meshes/segment_19.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="arm3_segment_19">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+  <joint name="arm3_pitch_joint_19" type="revolute">
+    <parent link="arm3_yaw_link_18"/>
+    <child link="arm3_segment_19"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="arm3_yaw_link_19">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm3_yaw_joint_19" type="revolute">
+    <parent link="arm3_segment_19"/>
+    <child link="arm3_yaw_link_19"/>
+    <origin xyz="0 0 0.02100000" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.5" upper="0.5" effort="100" velocity="2.0"/>
+  </joint>
+  
+  <!-- ==================================================
+       ROS 2 CONTROL - GAZEBO
+       ================================================== -->
+  <ros2_control name="ThreeArmGazeboSystem" type="system">
+    <hardware>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+    <joint name="arm1_pitch_joint_0">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_0">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_1">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_1">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_2">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_2">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_3">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_3">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_4">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_4">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_5">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_5">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_6">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_6">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_7">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_7">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_8">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_8">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_9">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_9">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_10">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_10">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_11">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_11">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_12">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_12">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_13">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_13">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_14">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_14">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_15">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_15">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_16">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_16">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_17">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_17">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_18">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_18">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_pitch_joint_19">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm1_yaw_joint_19">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_0">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_0">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_1">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_1">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_2">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_2">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_3">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_3">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_4">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_4">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_5">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_5">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_6">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_6">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_7">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_7">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_8">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_8">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_9">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_9">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_10">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_10">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_11">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_11">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_12">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_12">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_13">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_13">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_14">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_14">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_15">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_15">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_16">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_16">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_17">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_17">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_18">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_18">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_pitch_joint_19">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm2_yaw_joint_19">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_0">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_0">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_1">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_1">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_2">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_2">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_3">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_3">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_4">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_4">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_5">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_5">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_6">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_6">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_7">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_7">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_8">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_8">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_9">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_9">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_10">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_10">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_11">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_11">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_12">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_12">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_13">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_13">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_14">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_14">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_15">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_15">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_16">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_16">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_17">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_17">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_18">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_18">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_pitch_joint_19">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm3_yaw_joint_19">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+  
+  <!-- ==================================================
+       GAZEBO ROS 2 CONTROL PLUGIN
+       ================================================== -->
+  <gazebo>
+    <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <parameters>/home/vaibhav/doc_oct/src/octopus_description/config/bot.yaml</parameters>
+    </plugin>
+  </gazebo>
+</robot>

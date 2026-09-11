@@ -1,0 +1,75 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    arm_controller:
+      type: forward_command_controller/ForwardCommandController
+
+
+arm_controller:
+  ros__parameters:
+    joints:
+      - pitch_joint_0
+      - yaw_joint_0
+
+      - pitch_joint_1
+      - yaw_joint_1
+
+      - pitch_joint_2
+      - yaw_joint_2
+
+      - pitch_joint_3
+      - yaw_joint_3
+
+      - pitch_joint_4
+      - yaw_joint_4
+
+      - pitch_joint_5
+      - yaw_joint_5
+
+      - pitch_joint_6
+      - yaw_joint_6
+
+      - pitch_joint_7
+      - yaw_joint_7
+
+      - pitch_joint_8
+      - yaw_joint_8
+
+      - pitch_joint_9
+      - yaw_joint_9
+
+      - pitch_joint_10
+      - yaw_joint_10
+
+      - pitch_joint_11
+      - yaw_joint_11
+
+      - pitch_joint_12
+      - yaw_joint_12
+
+      - pitch_joint_13
+      - yaw_joint_13
+
+      - pitch_joint_14
+      - yaw_joint_14
+
+      - pitch_joint_15
+      - yaw_joint_15
+
+      - pitch_joint_16
+      - yaw_joint_16
+
+      - pitch_joint_17
+      - yaw_joint_17
+
+      - pitch_joint_18
+      - yaw_joint_18
+
+      - pitch_joint_19
+      - yaw_joint_19
+
+    interface_name: position

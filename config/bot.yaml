@@ -1,0 +1,168 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    arm1_controller:
+      type: forward_command_controller/ForwardCommandController
+
+    arm2_controller:
+      type: forward_command_controller/ForwardCommandController
+
+    arm3_controller:
+      type: forward_command_controller/ForwardCommandController
+
+
+# ============================================================
+# ARM 1 CONTROLLER
+# ============================================================
+
+arm1_controller:
+  ros__parameters:
+    joints:
+      - arm1_pitch_joint_0
+      - arm1_yaw_joint_0
+      - arm1_pitch_joint_1
+      - arm1_yaw_joint_1
+      - arm1_pitch_joint_2
+      - arm1_yaw_joint_2
+      - arm1_pitch_joint_3
+      - arm1_yaw_joint_3
+      - arm1_pitch_joint_4
+      - arm1_yaw_joint_4
+      - arm1_pitch_joint_5
+      - arm1_yaw_joint_5
+      - arm1_pitch_joint_6
+      - arm1_yaw_joint_6
+      - arm1_pitch_joint_7
+      - arm1_yaw_joint_7
+      - arm1_pitch_joint_8
+      - arm1_yaw_joint_8
+      - arm1_pitch_joint_9
+      - arm1_yaw_joint_9
+      - arm1_pitch_joint_10
+      - arm1_yaw_joint_10
+      - arm1_pitch_joint_11
+      - arm1_yaw_joint_11
+      - arm1_pitch_joint_12
+      - arm1_yaw_joint_12
+      - arm1_pitch_joint_13
+      - arm1_yaw_joint_13
+      - arm1_pitch_joint_14
+      - arm1_yaw_joint_14
+      - arm1_pitch_joint_15
+      - arm1_yaw_joint_15
+      - arm1_pitch_joint_16
+      - arm1_yaw_joint_16
+      - arm1_pitch_joint_17
+      - arm1_yaw_joint_17
+      - arm1_pitch_joint_18
+      - arm1_yaw_joint_18
+      - arm1_pitch_joint_19
+      - arm1_yaw_joint_19
+
+    interface_name: position
+
+
+# ============================================================
+# ARM 2 CONTROLLER
+# ============================================================
+
+arm2_controller:
+  ros__parameters:
+    joints:
+      - arm2_pitch_joint_0
+      - arm2_yaw_joint_0
+      - arm2_pitch_joint_1
+      - arm2_yaw_joint_1
+      - arm2_pitch_joint_2
+      - arm2_yaw_joint_2
+      - arm2_pitch_joint_3
+      - arm2_yaw_joint_3
+      - arm2_pitch_joint_4
+      - arm2_yaw_joint_4
+      - arm2_pitch_joint_5
+      - arm2_yaw_joint_5
+      - arm2_pitch_joint_6
+      - arm2_yaw_joint_6
+      - arm2_pitch_joint_7
+      - arm2_yaw_joint_7
+      - arm2_pitch_joint_8
+      - arm2_yaw_joint_8
+      - arm2_pitch_joint_9
+      - arm2_yaw_joint_9
+      - arm2_pitch_joint_10
+      - arm2_yaw_joint_10
+      - arm2_pitch_joint_11
+      - arm2_yaw_joint_11
+      - arm2_pitch_joint_12
+      - arm2_yaw_joint_12
+      - arm2_pitch_joint_13
+      - arm2_yaw_joint_13
+      - arm2_pitch_joint_14
+      - arm2_yaw_joint_14
+      - arm2_pitch_joint_15
+      - arm2_yaw_joint_15
+      - arm2_pitch_joint_16
+      - arm2_yaw_joint_16
+      - arm2_pitch_joint_17
+      - arm2_yaw_joint_17
+      - arm2_pitch_joint_18
+      - arm2_yaw_joint_18
+      - arm2_pitch_joint_19
+      - arm2_yaw_joint_19
+
+    interface_name: position
+
+
+# ============================================================
+# ARM 3 CONTROLLER
+# ============================================================
+
+arm3_controller:
+  ros__parameters:
+    joints:
+      - arm3_pitch_joint_0
+      - arm3_yaw_joint_0
+      - arm3_pitch_joint_1
+      - arm3_yaw_joint_1
+      - arm3_pitch_joint_2
+      - arm3_yaw_joint_2
+      - arm3_pitch_joint_3
+      - arm3_yaw_joint_3
+      - arm3_pitch_joint_4
+      - arm3_yaw_joint_4
+      - arm3_pitch_joint_5
+      - arm3_yaw_joint_5
+      - arm3_pitch_joint_6
+      - arm3_yaw_joint_6
+      - arm3_pitch_joint_7
+      - arm3_yaw_joint_7
+      - arm3_pitch_joint_8
+      - arm3_yaw_joint_8
+      - arm3_pitch_joint_9
+      - arm3_yaw_joint_9
+      - arm3_pitch_joint_10
+      - arm3_yaw_joint_10
+      - arm3_pitch_joint_11
+      - arm3_yaw_joint_11
+      - arm3_pitch_joint_12
+      - arm3_yaw_joint_12
+      - arm3_pitch_joint_13
+      - arm3_yaw_joint_13
+      - arm3_pitch_joint_14
+      - arm3_yaw_joint_14
+      - arm3_pitch_joint_15
+      - arm3_yaw_joint_15
+      - arm3_pitch_joint_16
+      - arm3_yaw_joint_16
+      - arm3_pitch_joint_17
+      - arm3_yaw_joint_17
+      - arm3_pitch_joint_18
+      - arm3_yaw_joint_18
+      - arm3_pitch_joint_19
+      - arm3_yaw_joint_19
+
+    interface_name: position
