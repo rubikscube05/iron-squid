@@ -116,7 +116,8 @@ class URDFGenerator:
         visual_xyz="0 0 0", visual_rpy="0 0 0",
         collision_xyz="0 0 0", collision_rpy="0 0 0",
         mass=0.1, ixx=0.001, iyy=0.001, izz=0.001,
-        color_rgba=None, material_name=None, gazebo_material=None
+        color_rgba=None, material_name=None, gazebo_material=None,
+        is_box=False, box_size="0.02 0.02 0.01"
     ):
         self.write(f'<link name="{name}">')
         self.indent_level += 1
@@ -148,6 +149,22 @@ class URDFGenerator:
                 
             self.indent_level -= 1
             self.write("</visual>")
+        elif is_box:
+            self.write("<visual>")
+            self.indent_level += 1
+            self.write("<geometry>")
+            self.indent_level += 1
+            self.write(f'<box size="{box_size}"/>')
+            self.indent_level -= 1
+            self.write("</geometry>")
+            if color_rgba and material_name:
+                self.write(f'<material name="{material_name}">')
+                self.indent_level += 1
+                self.write(f'<color rgba="{color_rgba}"/>')
+                self.indent_level -= 1
+                self.write("</material>")
+            self.indent_level -= 1
+            self.write("</visual>")
 
         if collision_mesh is not None:
             self.write("<collision>")
@@ -156,6 +173,16 @@ class URDFGenerator:
             self.write("<geometry>")
             self.indent_level += 1
             self.write(f'<mesh filename="model://{PACKAGE_NAME}/meshes/{collision_mesh}" scale="{MESH_SCALE}"/>')
+            self.indent_level -= 1
+            self.write("</geometry>")
+            self.indent_level -= 1
+            self.write("</collision>")
+        elif is_box:
+            self.write("<collision>")
+            self.indent_level += 1
+            self.write("<geometry>")
+            self.indent_level += 1
+            self.write(f'<box size="{box_size}"/>')
             self.indent_level -= 1
             self.write("</geometry>")
             self.indent_level -= 1
@@ -310,10 +337,64 @@ class URDFGenerator:
         self.write('<plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">')
         self.indent_level += 1
         self.write("<parameters>/home/vaibhav/doc_oct/src/octopus_description/config/bot.yaml</parameters>")
+        
+        # INJECTING CLOCK CONFIGURATION TO FIX 'NO CLOCK RECEIVED' WARNING
+        self.write('<ros>')
+        self.indent_level += 1
+        self.write('<parameter name="use_sim_time" value="true"/>')
+        self.indent_level -= 1
+        self.write('</ros>')
+        
         self.indent_level -= 1
         self.write("</plugin>")
         self.indent_level -= 1
         self.write("</gazebo>")
+
+        # IMU Gazebo Sensor Plugin
+        self.write("")
+        self.comment("GAZEBO IMU SENSOR PLUGIN WITH NOISE")
+        self.write('<gazebo reference="imu_link">')
+        self.indent_level += 1
+        self.write('<sensor name="imu_sensor" type="imu">')
+        self.indent_level += 1
+        self.write('<always_on>1</always_on>')
+        self.write('<update_rate>100</update_rate>')
+        self.write('<visualize>true</visualize>')
+        self.write('<topic>imu</topic>')
+        
+        self.write('<plugin filename="libgz-sim-imu-system.so" name="gz::sim::systems::Imu">')
+        self.indent_level += 1
+        self.write('<topic>imu</topic>')
+        self.indent_level -= 1
+        self.write('</plugin>')
+        
+        # ADDING GAUSSIAN NOISE BLOCK
+        self.write('<imu>')
+        self.indent_level += 1
+        
+        self.write('<linear_acceleration>')
+        self.indent_level += 1
+        self.write('<x><noise type="gaussian"><mean>0.0</mean><stddev>0.005</stddev></noise></x>')
+        self.write('<y><noise type="gaussian"><mean>0.0</mean><stddev>0.005</stddev></noise></y>')
+        self.write('<z><noise type="gaussian"><mean>0.0</mean><stddev>0.005</stddev></noise></z>')
+        self.indent_level -= 1
+        self.write('</linear_acceleration>')
+        
+        self.write('<angular_velocity>')
+        self.indent_level += 1
+        self.write('<x><noise type="gaussian"><mean>0.0</mean><stddev>0.001</stddev></noise></x>')
+        self.write('<y><noise type="gaussian"><mean>0.0</mean><stddev>0.001</stddev></noise></y>')
+        self.write('<z><noise type="gaussian"><mean>0.0</mean><stddev>0.001</stddev></noise></z>')
+        self.indent_level -= 1
+        self.write('</angular_velocity>')
+        
+        self.indent_level -= 1
+        self.write('</imu>')
+        
+        self.indent_level -= 1
+        self.write('</sensor>')
+        self.indent_level -= 1
+        self.write('</gazebo>')
 
     def generate(self):
         self.write('<?xml version="1.0"?>')
@@ -331,9 +412,31 @@ class URDFGenerator:
             color_rgba="0.2 0.2 0.8 1.0", material_name="head_blue", gazebo_material="Gazebo/Blue"
         )
 
-        # Apply a 180-degree roll (Pi radians) to flip the geometry and elevate it 0.5 meters to clear the ground
         self.add_fixed_joint(
             name="base_to_head", parent="base_link", child="head", xyz="0 0 0.5", rpy="3.14159265 0 0"
+        )
+
+        # ====================================================
+        # IMU LINK & JOINT
+        # ====================================================
+        self.comment("IMU SENSOR LINK")
+        self.add_link(
+            name="imu_link",
+            mass=0.01,
+            ixx=0.0001, iyy=0.0001, izz=0.0001,
+            is_box=True,
+            box_size="0.03 0.03 0.01",
+            color_rgba="0.8 0.1 0.1 1.0",
+            material_name="imu_red",
+            gazebo_material="Gazebo/Red"
+        )
+
+        self.add_fixed_joint(
+            name="head_to_imu",
+            parent="head",
+            child="imu_link",
+            xyz="0 0 0.05",
+            rpy="0 0 0"
         )
 
         faces = face_data()

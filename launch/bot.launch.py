@@ -201,6 +201,17 @@ def generate_launch_description():
     )
 
     # ============================================================
+    # GAZÈBO TO ROS 2 IMU BRIDGE
+    # ============================================================
+
+    imu_bridge = Node(
+        package="ros_gz_bridge",
+        executable="parameter_bridge",
+        arguments=["/imu@sensor_msgs/msg/Imu[gz.msgs.IMU"],
+        output="screen"
+    )
+
+    # ============================================================
     # DELAY CONTROLLERS
     # ============================================================
 
@@ -228,5 +239,6 @@ def generate_launch_description():
         robot_state_publisher,
         gazebo,
         spawn_robot,
+        imu_bridge,
         controllers,
     ])
